@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/02 16:36:21 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/03 14:30:31 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,40 +29,48 @@ void test_strlen(const char *str)
 	printf("Test string: %s\n\treal:\t%zu\n\tft:\t%zu\n", str, len, len_ft);
 }
 
-void test_strcpy(const char *str)
+void strcpy_results(char *dest, const char *src, int dest_len, char *(f)(char *, const char *))
 {
-	size_t	len;
-	char	*dest;
-	char	*dest_ft;
+	int i = 0;
+
+	printf("strcpy:\n\treturn ptr:\t%p\n\tdest ptr:\t%p\n", f(dest, src), dest);
+	
+	printf("contents of dest:\t");
+	while (i < dest_len)
+	{
+		if (dest[i] == '\0')
+			printf("[0]");
+		else
+			printf("%c", dest[i]);
+		i++;
+	}
+	printf("\n\n");
+}
+
+void test_strcpy(char *dest, const char *src)
+{
+	char *dest_ft = strdup(dest);
+	char *dest_real = strdup(dest);
+	int dest_len = strlen(dest);
+	int i = 0;
 
 	printf("Testing ft_strcpy:\n");
-	if (str != NULL)
-		len = strlen(str);
-	else
-	{
-		dest_ft = (char *)malloc(sizeof(char));
-		printf("source is NULL. strcpy should segfault");
-		ft_strcpy(dest_ft, str);
-	}
-	dest = (char *)malloc((len + 1) * sizeof(char));
-	dest_ft = (char *)malloc((len + 1) * sizeof(char));
-	strcpy(dest, str);
-	printf("Test string: %s\n\treal:\t[%s]\n\tft:\t[%s]\n", str, dest, dest_ft);
+	printf("Test strings:\n\tsrc:\t\t[%s]\n\tdest_real:\t[%s]\n\tdest_ft:\t[%s]\n\n", src, dest, dest_ft);
+
+	printf("Real strcpy:\n");
+	strcpy_results(dest_real, src, dest_len, strcpy);
+
+	printf("Fake strcpy:\n");
+	strcpy_results(dest_real, src, dest_len, ft_strcpy);
+
 }
+
+
 
 int main()
 {
-	// test_strlen("12");
-	// test_strcpy("12");
-	char *dest;
-
-	dest = (char *)malloc(10);
-	char src[] = "lolol";
-	strcpy(dest, "aaaaaaaaa");
-	// char dest[] = "12";
-	printf("src: %p, dest: %p\n", src, dest);
-	printf("value of rax: %s\n", ft_strcpy(dest, src));
-	printf("value of dest: %s\n", dest);
-	printf("src: %p, dest: %p\n", src, dest);
+	// test_strlen("11");
+	// test_strcpy("11", "22");
+	
 	return (0);
 }
