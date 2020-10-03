@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/03 14:30:31 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/03 14:38:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void test_strcpy(char *dest, const char *src)
 
 	printf("Fake strcpy:\n");
 	strcpy_results(dest_real, src, dest_len, ft_strcpy);
-
 }
 
 

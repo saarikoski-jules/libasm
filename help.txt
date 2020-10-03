@@ -31,9 +31,9 @@ https://www.tutorialspoint.com/assembly_programming/assembly_registers.htm
 
 
 %rax, %rbx, %rcx, %rdx, %rdi, %rsi, %rbp,
-%rsp, and %r8-r15. Of these, %rax, %rcx, %rdx, %rdi, %rsi, %rsp, and %r8-r11 Are not saved between function calls
+%rsp, and %r8-r15. Of these, %rax, %rcx, %rdx, %rdi, %rsi, %rsp, and %r8-r11 Are not saved between function calls. Volatile, don't have to ve pushed/popped
 
-registers %rbx, %rbp, and %r12-r15 are saved after functions finish
+registers %rbx, %rbp, and %r12-r15 are saved after functions finish. Must push/pop
 
 %rsp is the stack pointer to the topmost element of the stack
 
@@ -44,3 +44,4 @@ registers %rbx, %rbp, and %r12-r15 are saved after functions finish
 ; use rcx to iterate
 
 ; You can't move anything from memory to memory, but need to use a temporary register
+

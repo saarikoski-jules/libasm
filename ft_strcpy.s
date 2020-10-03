@@ -6,7 +6,7 @@
 ;    By: jsaariko <jsaariko@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/10/02 14:34:31 by jsaariko      #+#    #+#                  ;
-;    Updated: 2020/10/03 14:36:52 by jsaariko      ########   odam.nl          ;
+;    Updated: 2020/10/03 14:48:58 by jsaariko      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -30,4 +30,7 @@ loop:
 	ret
 
 ; TODO: Should I push and pop ah as well?
-; TODO: Should I use ah as temp register or not? 
+; TODO: Should I use ah as temp register or not?
+; TODO: To be more effient, maybe run 4 chars at a time 
+; TODO: rcx is a volatile register, meaning I don't have to save it
+; TODO: Use al instead of ah? (lowest register of rax) Or should I use a register I don't otherwise use
