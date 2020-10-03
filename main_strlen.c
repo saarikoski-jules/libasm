@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/03 15:30:50 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/03 16:08:13 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void test_strcmp(const char *s1, const char *s2)
 
 	printf("Test strings:\n\ts1:\t[%s]\n\ts2\t[%s]\n", s1, s2);
 	ret_real = strcmp(s1, s2);	
-	ret_ft = strcmp(s1, s2);	
+	ret_ft = ft_strcmp(s1, s2);	
 	if (ret_real == ret_ft)
 		printf("strcmp success!\n\tstrcmp:\t\t%d\n\tft_strcmp:\t%d\n", ret_real, ret_ft);
 	else
@@ -85,6 +85,6 @@ int main()
 	// test_strlen("11");
 	// test_strcpy("11", "22");
 	test_strcmp("123", "12");
-
+	// ft_write(1, "12", 2);
 	return (0);
 }
