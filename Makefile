@@ -6,14 +6,15 @@
 #    By: jsaariko <jsaariko@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 12:47:23 by jsaariko      #+#    #+#                  #
-#    Updated: 2020/10/02 14:33:58 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/03 14:49:43 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libasm.a
 
 FILES = 	ft_strlen \
-			ft_strcpy
+			ft_strcpy \
+			ft_strcmp
 
 S_FILES = 	$(FILES:=.s)
 
