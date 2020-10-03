@@ -36,3 +36,11 @@ https://www.tutorialspoint.com/assembly_programming/assembly_registers.htm
 registers %rbx, %rbp, and %r12-r15 are saved after functions finish
 
 %rsp is the stack pointer to the topmost element of the stack
+
+
+; section .data <- for declaring consts
+; section .bss <- for declaring variables
+
+; use rcx to iterate
+
+; You can't move anything from memory to memory, but need to use a temporary register
