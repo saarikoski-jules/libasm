@@ -6,13 +6,15 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/07 13:23:02 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/07 15:56:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libasm.h"
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/errno.h>
 
 // strlen segfaults with a NULL input
 void test_strlen(const char *str)
@@ -82,11 +84,39 @@ void test_strcmp(const char *s1, const char *s2)
 		printf("Test failed:\n\tstrcmp:\t%d\n\tft_strcmp:\t%d\n", ret_real, ret_ft);
 }
 
+void test_write(int fd, char *str, size_t byte_count)
+{
+	int ret_real;
+	int ret_ft;
+	int errno_real;
+	int errno_ft;
+
+	write(1, "real write:\n[", 13);
+
+	ret_real = write(fd, str, byte_count);
+
+	write(1, "]\n", 2);
+
+	errno_real = errno;
+    fprintf(stderr, "Value of errno: %d\n", errno);
+
+	write(1, "\nft_write:\n[", 12);
+
+	ret_ft = ft_write(fd, str, byte_count);
+
+	write(1, "]\n", 3);
+
+	errno_ft = errno;
+    fprintf(stderr, "Value of errno: %d\n\n", errno);
+
+	printf("real return:\t%d\nft return:\t%d\n", ret_real, ret_ft);
+}
+
 int main()
 {
 	// test_strlen("11");
 	// test_strcpy("111111111111111111", "223333333");
 	// test_strcmp("1122", "112");
-	// ft_write(1, "12", 2);
+	// test_write(1, "12345", 5);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: jsaariko <jsaariko@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 12:47:23 by jsaariko      #+#    #+#                  #
-#    Updated: 2020/10/03 16:04:16 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/07 14:13:56 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = libasm.a
 
 FILES = 	ft_strlen \
 			ft_strcpy \
-			ft_strcmp
+			ft_strcmp \
+			ft_write
 
 S_FILES = 	$(FILES:=.s)
 
