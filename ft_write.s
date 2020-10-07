@@ -6,7 +6,7 @@
 ;    By: jsaariko <jsaariko@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/10/03 15:34:36 by jsaariko      #+#    #+#                  ;
-;    Updated: 2020/10/07 15:53:17 by jsaariko      ########   odam.nl          ;
+;    Updated: 2020/10/07 16:00:43 by jsaariko      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -20,6 +20,6 @@ _ft_write:
 	jc fail					; Check if syscall returns negative (carry flag gets set as unsigned), jump to fail
 	ret						; if everything went smoothly, return
 fail:
-	call ___error			; calling ___error sets errno
+	call ___error			; sets errno
 	mov rax, -1				; Set write return value to -1
 	ret
