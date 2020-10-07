@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/03 16:08:13 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/07 13:23:02 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <string.h>
 
+// strlen segfaults with a NULL input
 void test_strlen(const char *str)
 {	
 	size_t len;
@@ -34,7 +35,7 @@ void strcpy_results(char *dest, const char *src, int dest_len, char *(f)(char *,
 	int i = 0;
 
 	printf("strcpy:\n\treturn ptr:\t%p\n\tdest ptr:\t%p\n", f(dest, src), dest);
-	
+
 	printf("contents of dest:\t");
 	while (i < dest_len)
 	{
@@ -47,6 +48,7 @@ void strcpy_results(char *dest, const char *src, int dest_len, char *(f)(char *,
 	printf("\n\n");
 }
 
+// strcpy segfaults with any NULL inputs or if dest isn't allocated
 void test_strcpy(char *dest, const char *src)
 {
 	char *dest_ft = strdup(dest);
@@ -65,7 +67,7 @@ void test_strcpy(char *dest, const char *src)
 }
 
 
-
+// strcmp segfaults with any NULL inputs
 void test_strcmp(const char *s1, const char *s2)
 {
 	int ret_real;
@@ -83,8 +85,8 @@ void test_strcmp(const char *s1, const char *s2)
 int main()
 {
 	// test_strlen("11");
-	// test_strcpy("11", "22");
-	test_strcmp("123", "12");
+	// test_strcpy("111111111111111111", "223333333");
+	// test_strcmp("1122", "112");
 	// ft_write(1, "12", 2);
 	return (0);
 }

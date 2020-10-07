@@ -45,3 +45,6 @@ registers %rbx, %rbp, and %r12-r15 are saved after functions finish. Must push/p
 
 ; You can't move anything from memory to memory, but need to use a temporary register
 
+The byte for rax is stored inside al, so if you want the char, move al to rax, even if its already there
+
+movsx moves a byte to a qword (if those are the right words)
