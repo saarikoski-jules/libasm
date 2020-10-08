@@ -5,7 +5,7 @@ segment .text
 	extern _ft_strcpy
 
 _ft_strdup:
-	call _ft_strlen		; get strlen to allocate∂
+	call _ft_strlen		; get strlen to allocate
 	inc rax				; add space for string terminator
 	push rdi			; save s1
 	mov rdi, rax		; use length of string as argument for malloc
