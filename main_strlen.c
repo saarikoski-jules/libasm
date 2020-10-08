@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/08 10:21:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/08 10:43:47 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,19 @@ void test_read(char *path_to_file, size_t byte_count)
 
 }
 
+//strdup segfaults when you pass null to it
+void test_strdup(const char *str)
+{
+	char *s_real;
+	char *s_ft;
+
+	s_real = strdup(str);
+	s_ft = ft_strdup(str);
+	printf("orig str\t%p\n[%s]\n", str, str);
+	printf("strdup\t\t%p\n[%s]\n", s_real, s_real);
+	printf("ft_strdup\t%p\n[%s]\n", s_ft, s_ft);
+}
+
 int main()
 {
 	// test_strlen("11");
@@ -151,5 +164,6 @@ int main()
 	// test_strcmp("1122", "112");
 	// test_write(1, NULL, 5);
 	// test_read("help.txtt", 1);
+	// test_strdup("1234567");
 	return (0);
 }
