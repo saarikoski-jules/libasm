@@ -8,8 +8,10 @@ _ft_read:                   ; same as write, but read <3
     jc fail
     ret
 fail:
+    mov rdi, rax
     call ___error
-    mov [rax], 12
+    mov [rax], rdi
+    mov rax, -1
     ret
 
-; TODO: Read segfaults when given bad 
+; TODO: Should i push and pop rdi before using it/use another register

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/07 16:28:54 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/08 10:21:40 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,7 @@ void test_read(char *path_to_file, size_t byte_count)
 	int ret_real;
 	int ret_ft;
 
-	// int fd = open(path_to_file, O_RDONLY);
-	int fd = -1;
+	int fd = open(path_to_file, O_RDONLY);
 
 	buf_real = (char *)malloc(sizeof(char) * byte_count);
 	buf_ft = (char *)malloc(sizeof(char) * byte_count);
@@ -133,12 +132,12 @@ void test_read(char *path_to_file, size_t byte_count)
 	ret_real = read(fd, buf_real, byte_count);
 	errno_real = errno;
 	close(fd);
-	// fd = open(path_to_file, O_RDONLY);
+	fd = open(path_to_file, O_RDONLY);
 	printf("Read %d bytes from fd %d\nreal:\t[%s]\nerrno:\t%d\n\n", ret_real, fd, buf_real, errno_real);
 	
-	fd = -1;
 
 	ret_ft = ft_read(fd, buf_ft, byte_count);
+	errno_ft = errno;
 	close(fd);
 
 	printf("Read %d bytes from fd %d\nft:\t[%s]\nerrno:\t%d\n", ret_ft, fd, buf_ft, errno_ft);
@@ -150,7 +149,7 @@ int main()
 	// test_strlen("11");
 	// test_strcpy("111111111111111111", "223333333");
 	// test_strcmp("1122", "112");
-	// test_write(-1, "12345", 5);
-	test_read("help.txtt", 1);
+	// test_write(1, NULL, 5);
+	// test_read("help.txtt", 1);
 	return (0);
 }
