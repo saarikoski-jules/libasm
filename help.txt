@@ -48,3 +48,20 @@ registers %rbx, %rbp, and %r12-r15 are saved after functions finish. Must push/p
 The byte for rax is stored inside al, so if you want the char, move al to rax, even if its already there
 
 movsx moves a byte to a qword (if those are the right words)
+
+RBX, RBP, RDI, RSI, R12, R14, R14, and R15 must be saved in any function using them.
+
+
+RAX, RCX, RDX, R8, R9, R10, and R11 are considered volatile and must be considered destroyed on function calls.
+
+
+Syscall
+Func    Param 1	Param 2	Param 3	Param 4	Param 5	Param 6
+rax     rdi	    rsi	    rdx	    r10	    r8	    r9
+
+
+2
+
+Yes, in the System V ABI, the stack is aligned to a 16-byte boundary before every call instruction. Thus, on function entry it takes another 8 bytes (not 1) to reach the next 16-byte boundary. Remember that in C, pointer differences are scaled by sizeof(type), but in asm they aren't.
+
+And yes, push rax / pop rcx would be a good choice, and is what clang / LLVM does if it doesn't already need to push an odd number of call-preserved registers or reserve any extra stack space. If you do need to reserve any stack space for locals, use an offset that will leave rsp 16-byte aligned.

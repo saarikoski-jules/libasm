@@ -1,4 +1,4 @@
-
+#include "libasm.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,7 +47,7 @@ int	validate(const char *num, const char *charset)
 	return (1);
 }
 
-int ft_atoi_base(const char *num, const char *charset)
+int my_atoi_base(const char *num, const char *charset)
 {
 	int base;
 	int i = 0;
@@ -83,6 +83,7 @@ int main()
 	base = 1;
 	printf("%lu\n", strtoul(str, &ptr, base));
 
-	printf("%d\n", ft_atoi_base(str, "0"));
+	printf("%d\n", my_atoi_base(str, "0"));
+	printf("%d\n", ft_atoi_base("", "12345615"));
 	return (0);
 }

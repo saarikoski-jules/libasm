@@ -1,0 +1,14 @@
+Warning: The following openssl@1.1 configuration files have not been removed!
+If desired, remove them manually with `rm -rf`:
+  /Users/jsaariko/.brew/etc/openssl@1.1
+  /Users/jsaariko/.brew/etc/openssl@1.1/cert.pem
+  /Users/jsaariko/.brew/etc/openssl@1.1/certs
+  /Users/jsaariko/.brew/etc/openssl@1.1/ct_log_list.cnf
+  /Users/jsaariko/.brew/etc/openssl@1.1/ct_log_list.cnf.dist
+  /Users/jsaariko/.brew/etc/openssl@1.1/misc
+  /Users/jsaariko/.brew/etc/openssl@1.1/misc/CA.pl
+  /Users/jsaariko/.brew/etc/openssl@1.1/misc/tsget
+  /Users/jsaariko/.brew/etc/openssl@1.1/misc/tsget.pl
+  /Users/jsaariko/.brew/etc/openssl@1.1/openssl.cnf
+  /Users/jsaariko/.brew/etc/openssl@1.1/openssl.cnf.dist
+  /Users/jsaariko/.brew/etc/openssl@1.1/private
