@@ -64,7 +64,16 @@ _validate_num:
 	cmp rdi, 0x0				; check if num string is null
 	je invalid_num				; invalid argument
 	mov rcx, -1					; initialize num iterator
-L5:
+
+	mov ah, [rdi]				; move first char of num to compare
+	cmp ah, 43					; check if plus
+	je L12						; if yes, go to increment
+	cmp ah, 45					; check if minus
+	jne L5						; if not, skip incrementing
+L12:	
+	inc rcx						; increment rcx to skip + or -
+
+L5:								; start actual loop
 	inc rcx						; increment num iterator
 	mov rbx, -1					; set iterator charset
 L6:								; second loop
@@ -197,3 +206,4 @@ invalid_params:
 
 
 
+; TODO: shouldn't use ah as temporary register for parst where rax is important

@@ -77,7 +77,7 @@ int my_atoi_base(const char *num, const char *charset)
 int main()
 {
 	// int base;
-	char str[] = "111";
+	char str[] = "+111";
 	char base[] = "0123456789";
 	char *ptr;
 
@@ -86,7 +86,7 @@ int main()
 
 
 
-	printf("%d\n", my_atoi_base(str, base));
+	// printf("%d\n", my_atoi_base(str, base));
 	printf("%d\n", ft_atoi_base(str, base));
 	return (0);
 }
