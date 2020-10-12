@@ -61,15 +61,27 @@ invalid_charset:
 
 
 _validate_num:
-	cmp rdi, 0x0
-	je invalid_num
-	push rcx
-	mov rcx, -1
+	cmp rdi, 0x0				; check if num string is null
+	je invalid_num				; invalid argument
+	mov rcx, -1					; initialize num iterator
 L5:
-	inc rcx
-	
+	inc rcx						; increment num iterator
+	mov rbx, -1					; set iterator charset
+L6:								; second loop
+	inc rbx						; increment charset iterator
+	cmp byte [rdi + rcx], 0		; if at the end of num string, valid
+	je valid_num
+	cmp byte [rsi + rbx], 0		; if at the end of charset, invalid
+	je invalid_num
+	mov ah, [rdi + rcx]			; move char to be compared
+	cmp ah, byte [rsi + rbx]	; check if match
+	je L5						; if match, increment num string
+	jmp L6						; else increment charset string
 invalid_num:
-	mov rax, 0
+	mov rax, 0					; if invalid, return 0
+	ret
+valid_num:
+	mov rax, 1					; if valid, return 1
 	ret
 
 ; TODO: Should I use ah as the register...?
@@ -81,16 +93,22 @@ invalid_num:
 ; num has any other chars in it than mentioned in charset
 _validate:
 	call _validate_charset
-	cmp rax, 0
+	cmp rax, 0					; if charset is not valid, return 0
 	je invalid
-	call _validate_num
-	ret
+	call _validate_num			; if charset is valid, check if num is valid
+	ret							; return result of validate_num
 invalid:
-	mov rax, 0
+	mov rax, 0					; if invalid, return 0
 	ret
 
 _ft_atoi_base:
-	call _validate
+	call _validate				; check if params are valid
+	cmp rax, 0
+	je invalid_params
+	
+	ret
+invalid_params:
+	mov rax, 0					; if params are invalid, return 0
 	ret
 
 

@@ -84,6 +84,6 @@ int main()
 	// printf("%lu\n", strtoul(str, &ptr, base));
 
 	// printf("%d\n", my_atoi_base(str, "0"));
-	printf("%d\n", ft_atoi_base("", "1023456"));
+	printf("%d\n", ft_atoi_base("0123455556", "1023456"));
 	return (0);
 }
