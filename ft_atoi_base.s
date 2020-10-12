@@ -24,7 +24,7 @@ L3:
 	cmp ah, [rsi + rcx]
 	je L4
 	cmp byte [rsi + rbx], 0
-	jne L2
+	je L2
 	jmp L3
 valid:
 	mov rax, 1

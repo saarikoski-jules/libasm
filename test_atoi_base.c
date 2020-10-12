@@ -81,9 +81,9 @@ int main()
 	char *ptr;
 
 	base = 1;
-	printf("%lu\n", strtoul(str, &ptr, base));
+	// printf("%lu\n", strtoul(str, &ptr, base));
 
-	printf("%d\n", my_atoi_base(str, "0"));
+	// printf("%d\n", my_atoi_base(str, "0"));
 	printf("%d\n", ft_atoi_base("", "12345615"));
 	return (0);
 }
