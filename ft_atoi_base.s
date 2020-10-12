@@ -198,7 +198,10 @@ L9:								; main loop
 
 ; result =	result	*	base	+	cur
 ; rax =		rax		*	rdx		+	_find_number/rbx
-
+	cmp byte [rdi], 45
+	jne completed
+	neg rax
+completed:
 	ret
 invalid_params:
 	mov rax, 0					; if params are invalid, return 0
