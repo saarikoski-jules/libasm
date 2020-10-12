@@ -1,14 +1,7 @@
-; + and - can be specified as the first char, otherwise only chars specified in base are allowed
-; Build error checking function
-
-
 section .text
 	global _ft_atoi_base
 	extern _ft_strlen
-	extern _ft_write
 
-
-; TODO: Test if this works instead of adding rcx into rbx which is zero, if you can just use mov and the value is stored in both
 _check_duplicate:
 	mov rcx, -1					; first iterator starts from -1
 L2:
@@ -32,33 +25,26 @@ L4:
 	mov rax, 0					; return 0 if invalid
 	ret
 
-
-; fail if there is a + or - within charset
-; TODO: if the same char is mentioned multiple times
-; contains only one or less chars
-; if charset is NULL
 _validate_charset:
-	cmp rsi, 0x0			; check if string is NULL
-	je invalid_charset		; if NULL, invalid
-	mov rcx, -1				; initialize interator
+	cmp rsi, 0x0				; check if string is NULL
+	je invalid_charset			; if NULL, invalid
+	mov rcx, -1					; initialize interator
 L1:
-	inc rcx					; increment interator
-	mov ah, [rsi + rcx]		; move byte at index to be compared
-	cmp ah, 43				; invalid if there is a plus
+	inc rcx						; increment interator
+	mov ah, [rsi + rcx]			; move byte at index to be compared
+	cmp ah, 43					; invalid if there is a plus
 	je invalid_charset
-	cmp ah, 45				; invalid if there's a minus
+	cmp ah, 45					; invalid if there's a minus
 	je invalid_charset
-	cmp ah, 0				; if not the null byte, loop again
+	cmp ah, 0					; if not the null byte, loop again
 	jne L1
-	cmp rcx, 1				; compare strlen to 1	
-	jle invalid_charset		; if 1 or less, charset is invalid
-	call _check_duplicate	; return result of check duplicate
+	cmp rcx, 1					; compare strlen to 1	
+	jle invalid_charset			; if 1 or less, charset is invalid
+	call _check_duplicate		; return result of check duplicate
 	ret
 invalid_charset:
-	mov rax, 0				; return 0
+	mov rax, 0					; return 0
 	ret
-
-
 
 _validate_num:
 	cmp rdi, 0x0				; check if num string is null
@@ -95,18 +81,6 @@ valid_num:
 	mov rax, 1					; if valid, return 1
 	ret
 
-; TODO: Should I use ah as the register...?
-
-
-
-
-
-
-; return zero if:
-; + or - within charset
-; base is 1 or less
-; num has plus or minus anywhere except as the first char
-; num has any other chars in it than mentioned in charset
 _validate:
 	call _validate_charset
 	cmp rax, 0					; if charset is not valid, return 0
@@ -117,31 +91,26 @@ invalid:
 	mov rax, 0					; if invalid, return 0
 	ret
 
-
-
-
 _find_number:
-	mov ah, [rdi + rcx]
-	push rcx
-	mov rcx, -1
+	mov ah, [rdi + rcx]			; move current char to be compared
+	push rcx					; save num str index
+	mov rcx, -1					; set up iterator
 L10:
 	inc rcx
-	cmp ah, [rsi + rcx]
-	jne L10
-	mov rax, rcx
-	pop rcx
+	cmp ah, [rsi + rcx]			; check if current byte in charset is saved char
+	jne L10						; if not, try the next one
+	mov rax, rcx				; when found macthing byte, return value of char
+	pop rcx						; get num str index back
 	ret
 
-
-
 _multiply:
-	mov rcx, rsi
-	mov rax, 0
+	mov rcx, rsi				; use number of times as iterator
+	mov rax, 0					; start off from 0
 L11:
-	add rax, rdi
+	add rax, rdi				; add number to multiply to result
 	dec rcx
-	cmp rcx, 0
-	jne L11
+	cmp rcx, 0					; check if we've added number enough times
+	jne L11						; if not, add one more
 	ret
 
 ; register use:
@@ -154,34 +123,29 @@ L11:
 ; ah: temp comparison register
 _ft_atoi_base:
 	call _validate				; check if params are valid
-	cmp rax, 0
+	cmp rax, 0					; if not valid, go to invalid_params
 	je invalid_params
-
-	mov rcx, -1					; check if first char is - or + and increment over it
-	mov ah, [rdi]
-	cmp ah, 45
-	je L7
-	cmp ah, 43
-	jne L8
+	mov rcx, -1					; start up index counter
+	mov ah, [rdi]				; move to be compared byte to temp register
+	cmp ah, 45					; check if -
+	je L7						; jump to label L7 to increment
+	cmp ah, 43					; check if +
+	jne L8						; if not plus, skip over incrementing
 L7:
 	inc rcx
-
 L8:								; save strlen of charset into base
 	push rdi					; save num string
-	mov rdi, rsi
+	mov rdi, rsi				; pass charset into strlen
 	call _ft_strlen				; base now stored in rax
 	mov rdx, rax				; store base in rdx
 	pop rdi						; bring num string back
-	mov rax, 0
-
+	mov rax, 0					; zero out rax so I can build my int there
 L9:								; main loop
 	inc rcx
-	push rax
+	push rax					; store result value to get current number in string
 	call _find_number			; translate current char into a number
 	mov rbx, rax				; store result in rbx
-	pop rax
-
-
+	pop rax						; get result integer back
 	push rdi					; save number string on stack
 	push rsi					; save charset strin gon stack
 	push rcx					; save index on the stack
@@ -192,21 +156,17 @@ L9:								; main loop
 	pop rsi						; get charset back from stack
 	pop rdi						; get number string back from stack
 	add rax, rbx				; add new number to the back
-
-	cmp byte [rdi + rcx + 1], 0
-	jne L9						; if next char is not null byte, continue 
-
-; result =	result	*	base	+	cur
-; rax =		rax		*	rdx		+	_find_number/rbx
-	cmp byte [rdi], 45
-	jne completed
-	neg rax
+	cmp byte [rdi + rcx + 1], 0	; check if next char is the null byte
+	jne L9						; if not, loop again
+	cmp byte [rdi], 45			; check if first char of num is -
+	jne completed				; if not -, we're done here
+	neg rax						; if the first char is -, get the negative value
 completed:
-	ret
+	ret							; return actual result
 invalid_params:
 	mov rax, 0					; if params are invalid, return 0
 	ret
 
-
-
 ; TODO: shouldn't use ah as temporary register for parst where rax is important
+; TODO: Test if this works instead of adding rcx into rbx which is zero, if you can just use mov and the value is stored in both
+; TODO: Should I use ah as the register...?
