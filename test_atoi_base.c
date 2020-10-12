@@ -76,14 +76,17 @@ int my_atoi_base(const char *num, const char *charset)
 
 int main()
 {
-	int base;
-	char str[] = "10";
+	// int base;
+	char str[] = "111";
+	char base[] = "0123456789";
 	char *ptr;
 
-	base = 1;
+	// base = 1;
 	// printf("%lu\n", strtoul(str, &ptr, base));
 
-	// printf("%d\n", my_atoi_base(str, "0"));
-	printf("%d\n", ft_atoi_base("0123455556", "1023456"));
+
+
+	printf("%d\n", my_atoi_base(str, base));
+	printf("%d\n", ft_atoi_base(str, base));
 	return (0);
 }

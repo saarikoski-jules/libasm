@@ -81,10 +81,17 @@ invalid_num:
 	mov rax, 0					; if invalid, return 0
 	ret
 valid_num:
+	cmp rcx, 0					; if empty string, invalid
+	jle invalid_num
 	mov rax, 1					; if valid, return 1
 	ret
 
 ; TODO: Should I use ah as the register...?
+
+
+
+
+
 
 ; return zero if:
 ; + or - within charset
@@ -101,29 +108,92 @@ invalid:
 	mov rax, 0					; if invalid, return 0
 	ret
 
+
+
+
+_find_number:
+	mov ah, [rdi + rcx]
+	push rcx
+	mov rcx, -1
+L10:
+	inc rcx
+	cmp ah, [rsi + rcx]
+	jne L10
+	mov rax, rcx
+	pop rcx
+	ret
+
+
+
+_multiply:
+	mov rcx, rsi
+	mov rax, 0
+L11:
+	add rax, rdi
+	dec rcx
+	cmp rcx, 0
+	jne L11
+	ret
+
+; register use:
+; rdi: number to translate
+; rsi: charset
+; rcx: index
+; rax: final int
+; rdx, base
+; rbx: current number
+; ah: temp comparison register
 _ft_atoi_base:
 	call _validate				; check if params are valid
 	cmp rax, 0
 	je invalid_params
-	
+
+	mov rcx, -1					; check if first char is - or + and increment over it
+	mov ah, [rdi]
+	cmp ah, 45
+	je L7
+	cmp ah, 43
+	jne L8
+L7:
+	inc rcx
+
+L8:								; save strlen of charset into base
+	push rdi					; save num string
+	mov rdi, rsi
+	call _ft_strlen				; base now stored in rax
+	mov rdx, rax				; store base in rdx
+	pop rdi						; bring num string back
+	mov rax, 0
+
+L9:								; main loop
+	inc rcx
+	push rax
+	call _find_number			; translate current char into a number
+	mov rbx, rax				; store result in rbx
+	pop rax
+
+
+	push rdi					; save number string on stack
+	push rsi					; save charset strin gon stack
+	push rcx					; save index on the stack
+	mov rdi, rax				; multiply current result
+	mov rsi, rdx				; by base
+	call _multiply				; result of multiplication is stored in rax, rax = rax * rdx
+	pop rcx						; get index back
+	pop rsi						; get charset back from stack
+	pop rdi						; get number string back from stack
+	add rax, rbx				; add new number to the back
+
+	cmp byte [rdi + rcx + 1], 0
+	jne L9						; if next char is not null byte, continue 
+
+; result =	result	*	base	+	cur
+; rax =		rax		*	rdx		+	_find_number/rbx
+
 	ret
 invalid_params:
 	mov rax, 0					; if params are invalid, return 0
 	ret
 
 
-; _ft_atoi_base:
-; 	call _validate
-; 	push rdi
-; 	mov rdi, rsi	; TODO: is the value of rsi only in rdi now, or in both?
-; 	call _ft_strlen
-; 	ret
 
-
-
-
-
-
-
-
-	
