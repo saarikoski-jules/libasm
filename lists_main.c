@@ -8,9 +8,12 @@ int main()
 	item->next = NULL;
 	item->data = 1;
 	head = item;
+	t_list *lol;
+	lol = NULL;
 	printf("address of head: %p\naddress of next: %p\ndata: %d\n", head, head->next, head->data);
-	ft_list_push_front(&head, 0);
-	printf("new address of head: %p\naddress of next: %p\ndata: %d\n", head, head->next, head->data);
-	printf("address of next element: %p\naddress of next: %p\ndata: %d\n", head->next, head->next->next, head->next->data);
+	// printf("new address of head: %p\naddress of next: %p\ndata: %d\n", lol, lol->next, lol->data);
+	ft_list_push_front(&lol, 0);
+	printf("new address of head: %p\naddress of next: %p\ndata: %d\n", lol, lol->next, lol->data);
+	// printf("address of next element: %p\naddress of next: %p\ndata: %d\n", head->next, head->next->next, head->next->data);
 	return (0);
 }
