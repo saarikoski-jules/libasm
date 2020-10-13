@@ -6,7 +6,7 @@
 #    By: jsaariko <jsaariko@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 12:47:23 by jsaariko      #+#    #+#                  #
-#    Updated: 2020/10/13 11:10:17 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/13 12:13:20 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ FILES = 	ft_strlen \
 			ft_read \
 			ft_strdup \
 			ft_atoi_base \
-			ft_list_push_front		
+			ft_list_push_front \
+			ft_list_size	
 
 S_FILES = 	$(FILES:=.s)
 

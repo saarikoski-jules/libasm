@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:48:51 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/13 11:50:22 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/13 12:51:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		ft_read(int fd, void *buf, size_t count);
 char	*ft_strdup(const char *s1);
 int		ft_atoi_base(char *str, char *base);
 void	ft_list_push_front(t_list **begin_list, void *data);
+int		ft_list_size(t_list *head);
 
 
 # endif
