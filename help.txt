@@ -65,3 +65,5 @@ rax     rdi	    rsi	    rdx	    r10	    r8	    r9
 Yes, in the System V ABI, the stack is aligned to a 16-byte boundary before every call instruction. Thus, on function entry it takes another 8 bytes (not 1) to reach the next 16-byte boundary. Remember that in C, pointer differences are scaled by sizeof(type), but in asm they aren't.
 
 And yes, push rax / pop rcx would be a good choice, and is what clang / LLVM does if it doesn't already need to push an odd number of call-preserved registers or reserve any extra stack space. If you do need to reserve any stack space for locals, use an offset that will leave rsp 16-byte aligned.
+
+hheeeelp
