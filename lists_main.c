@@ -1,44 +1,47 @@
 #include "libasm.h"
 #include <stdio.h>
 
+void c_list_sort(t_list **begin_list, int (*cmp)());
+
 int compare(int a, int b)
 {
-	printf("a: %d\nb: %d\n", a, b);
-	if (a < b)
-		return (0);
-	return (1);
+	// printf("a: %d b: %d\n", a, b);
+	// if (a < b)
+	// 	return (0);
+	// return (1);
+	return (a - b);
 }
 
 int main()
 {
-	t_list *item = malloc(sizeof(t_list));
-	t_list *head;
-	item->next = NULL;
-	item->data = 1;
-	head = item;
-	t_list *lol;
-	lol = NULL;
-	printf("address of head: %p\naddress of next: %p\ndata: %d\n", head, head->next, head->data);
-	// printf("new address of head: %p\naddress of next: %p\ndata: %d\n", lol, lol->next, lol->data);
-	ft_list_push_front(&lol, 2);
-	ft_list_push_front(&lol, 3);
-	// ft_list_push_front(&lol, 0);
-	// ft_list_push_front(&lol, 0);
-	// ft_list_push_front(&lol, 0);
-	printf("new address of head: %p\naddress of next: %p\ndata: %d\n", lol, lol->next, lol->data);
+	t_list *head = (t_list *)malloc(sizeof(t_list));
+	head->next = NULL;
+	head->data = 5;
 
-	printf("ret: %d\n", ft_list_sort(lol, compare));
-	printf("new address of head: %p\naddress of next: %p\ndata: %d\n", lol, lol->next, lol->data);
+	ft_list_push_front(&head, 3);
+	ft_list_push_front(&head, 1);
+	ft_list_push_front(&head, 10);
+	ft_list_push_front(&head, 2);
+	ft_list_push_front(&head, 9);
+	ft_list_push_front(&head, 7);
+	ft_list_push_front(&head, 4);
+	ft_list_push_front(&head, 6);
+	ft_list_push_front(&head, 8);
 
-	// t_list *cur = lol;
-	// int i = 0;
-	// while(cur != NULL)
-	// {
-		// cur = cur->next;
-		// i++;
-	// }
-	// printf("%d\n", i);
-	// printf("%d\n", ft_list_size(lol));
-	// printf("address of next element: %p\naddress of next: %p\ndata: %d\n", head->next, head->next->next, head->next->data);
+	t_list *cur = head;
+	while(cur != NULL)
+	{
+		printf("%d\n", cur->data);
+		cur = cur->next;
+	}
+	c_list_sort(&head, compare);
+	cur = head;
+	printf("sorted:\n");
+	while(cur != NULL)
+	{
+		printf("%d\n", cur->data);
+		cur = cur->next;
+	}
+
 	return (0);
 }
