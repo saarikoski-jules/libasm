@@ -5,7 +5,7 @@ void c_list_sort(t_list **begin_list, int (*cmp)());
 
 int compare(int a, int b)
 {
-	// printf("a: %d b: %d\n", a, b);
+	printf("a: %d b: %d\n", a, b);
 	// if (a < b)
 	// 	return (0);
 	// return (1);
@@ -31,10 +31,12 @@ int main()
 	t_list *cur = head;
 	while(cur != NULL)
 	{
-		printf("%d\n", cur->data);
+		printf("%p, %d\n", cur, cur->data);
 		cur = cur->next;
 	}
-	c_list_sort(&head, compare);
+	// c_list_sort(&head, compare);
+	printf("return: %p\n", ft_list_sort(head, compare));
+	// printf("data: %d\n\n", ft_list_sort(head, compare)->data);
 	cur = head;
 	printf("sorted:\n");
 	while(cur != NULL)

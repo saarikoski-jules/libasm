@@ -6,7 +6,7 @@
 #    By: jsaariko <jsaariko@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 12:47:23 by jsaariko      #+#    #+#                  #
-#    Updated: 2020/10/13 15:17:27 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/11/17 17:00:40 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ S_FILES = 	$(FILES:=.s)
 O_FILES = $(FILES:=.o)
 
 # TEST_MAIN = tests.c
-TEST_MAIN = lists_main.c
+TEST_MAIN = lists_main.c c_list_sort.c
 
 all: $(NAME)
 

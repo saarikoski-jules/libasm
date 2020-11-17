@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:48:51 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/13 16:11:38 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/17 17:50:28 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ char	*ft_strdup(const char *s1);
 int		ft_atoi_base(char *str, char *base);
 void	ft_list_push_front(t_list **begin_list, void *data);
 int		ft_list_size(t_list *head);
-int		ft_list_sort(t_list *head, int (*cmp)());
+// void		ft_list_sort(t_list *head, int (*cmp)());
+// int		ft_list_sort(t_list *head, int (*cmp)());
+t_list	*ft_list_sort(t_list *head, int (*cmp)());
 
 
 # endif
