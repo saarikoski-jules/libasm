@@ -69,4 +69,5 @@ dont_scoot:
 
 
 	mov rax, r12
+	mov rdi, r12
 	ret
