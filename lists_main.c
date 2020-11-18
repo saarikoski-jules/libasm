@@ -35,11 +35,11 @@ int main()
 		cur = cur->next;
 	}
 	// c_list_sort(&head, compare);
-	t_list *ret = ft_list_sort(head, compare);
-	if (ret == NULL)
-		printf("NULL\n");
-	else
-		printf("return: %p, %d\n", ret, ret->data);
+	ft_list_sort(head, compare);
+	// if (ret == NULL)
+		// printf("NULL\n");
+	// else
+		// printf("return: %p, %d\n", ret, ret->data);
 	// t_list *tmp = ret;
 	t_list *tmp = head;
 	printf("old head:\n");
@@ -49,6 +49,7 @@ int main()
 		tmp = tmp->next;
 	}
 
+	
 
 	// cur = head;
 	// printf("head:\n");

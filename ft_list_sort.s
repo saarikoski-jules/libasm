@@ -1,10 +1,9 @@
 section .text
 	global _ft_list_sort
-	extern _ft_list_size
+	extern _asm_list_scoot
 
 ; rdi: head
 ; rsi: sorting function
-
 
 ; iterate over each item.
 ; if current item and next item are in the wrong order, reorder
@@ -12,22 +11,15 @@ section .text
 ; if zero swaps occur on a given iteration, you're done
 
 
-; non volatile registers to use: rbx, rbp, r12 - r15
-
-
 _get_smallest_node:
 	push r13
 	push r14
-
 	mov r13, rdi		; store smallest item in r13
 	mov r14, rdi		; current item iterated over stored in r14
 						; ..Can i store the same value in two places?
-
 	push rdi
 	push rsi
-
 L1:
-						; compare smallest (r13) with current index ()
 	mov rdi, [r13]		; Move value of smallest node into first param
 	mov rsi, [r14]		; get data from current oterated over node into param
 	call rbx			; call function from function pointer
@@ -35,67 +27,21 @@ L1:
 	jl continue			; if arg 1 is smaller, rax is negative -> do nothing
 	mov r13, r14		; else store current node to smallest
 continue:
-
 	mov r14, [r14 + 8]	; cur = cur->next
 	cmp r14, 0x0		; if NULL, stop iterating
 	je finish			; TODO: could also do jump if zero??
 	jmp L1
-
 finish:
 	pop rsi
 	pop rdi
-
 	mov rax, r13
-
 	pop r14
 	pop r13
-
 	ret
 
 
-
-
-_list_scoot:		; TODO: when rdi == NULL or rdi->next == NULL
-	mov r9, rdi		; head in r9
-	mov r10, rdi	; store prev value
-
-	cmp rdi, rsi
-	jne L3
-	mov rdi, [rdi + 8]
-	jmp list_scoot_end
-L3:
-	mov r10, r9
-	mov r9, [r9 + 8]
-	cmp r9, rsi
-	jne L3
-
-	mov r8, [r9 + 8]	; r8 holds pointer to cur->next
-	mov [r10 + 8], r8	; store cur->next into prev->next
-
-	jmp list_scoot_end
-
-list_scoot_end:
-	mov rax, rdi
-	ret
-
-
-
-
-; _list_move_back:
-; 	; cmp rdi, 0x0
-; 	; je list_move_back_end
-; ; L5:
-; 	; mov rdi, [rdi + 8]
-; 	; cmp rdi, 0x0
-
-; ; list_move_back_end:
-; 	mov [rdi], rsi
-; 	mov rax, 0
-; 	ret
 
 _list_move_back:
-	; cmp r13, 0x0
-	; je L6
 	mov r9, r13		; r9 = cur
 	cmp r9, 0x0
 	je L6
@@ -115,6 +61,7 @@ list_move_back_end:
 
 
 
+; non volatile registers to use: rbx, rbp, r12 - r15
 
 _ft_list_sort:
 	mov rbx, rsi		; function pointer now stored in rbx
@@ -128,40 +75,29 @@ L4:
 	call _get_smallest_node
 	mov r14, rax		; store element to reposition in r14
 
+
+	mov rax, 0
 	mov rdi, r12		; head of list
 	mov rsi, r14		; param2, elem to remove
-	
-	
-	call _list_scoot
+	call _asm_list_scoot
 	mov r12, rax		; head of new list into r12
-
 
 	mov qword [r14 + 8], 0
 
-	; mov rsi, r13		; param1: head of new list
-	; mov rdi, r14		; param2: item to add
 	call _list_move_back
 
 	mov r11, [r12 + 8]
 	cmp r11, 0x0
 	jne L4
 
-
 	push r14
 	mov r14, r12
 	call _list_move_back
 	pop r14
-
 
 end_sort:
 	pop rdi
 	pop rsi
 
 	mov rdi, r13
-	mov rax, r12
 	ret
-
-
-; _ft_return_val:
-
-
