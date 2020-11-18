@@ -35,26 +35,8 @@ static void free_list(t_list **head)
 	*head = NULL;
 }
 
-void test_list()
+void test_list_rm(t_list *head)
 {
-	t_list *head = (t_list *)malloc(sizeof(t_list));
-	head->next = NULL;
-	head->data = 5;
-
-	ft_list_push_front(&head, 7);
-	ft_list_push_front(&head, 3);
-	ft_list_push_front(&head, 10);
-	ft_list_push_front(&head, 2);
-	ft_list_push_front(&head, 8);
-	ft_list_push_front(&head, 9);
-	ft_list_push_front(&head, 7);
-	ft_list_push_front(&head, 1);
-	ft_list_push_front(&head, 1);
-	ft_list_push_front(&head, 7);
-	ft_list_push_front(&head, 6);
-	ft_list_push_front(&head, 4);
-	ft_list_push_front(&head, 1);
-	ft_list_push_front(&head, 7);
 
 	t_list *cur = head;
 
@@ -75,14 +57,45 @@ void test_list()
 	ft_list_remove_if(&head, 9, compare);
 	ft_list_remove_if(&head, 10, compare);
 	print_list(head);
+}
 
-	printf("lol\n");
+void test_list_sort(t_list *head)
+{
+	printf("before sort\n");
+	print_list(head);
+	ft_list_sort(&head, compare);
+	printf("after sort\n");
+	print_list(head);
+}
 
+void test_list()
+{
+	t_list *head = (t_list *)malloc(sizeof(t_list));
+	head->next = NULL;
+	head->data = 5;
+
+	ft_list_push_front(&head, 7); //TODO: check if push front needs to work without allocating first elem
+	ft_list_push_front(&head, 3);
+	ft_list_push_front(&head, 10);
+	ft_list_push_front(&head, 2);
+	ft_list_push_front(&head, 8);
+	ft_list_push_front(&head, 9);
+	ft_list_push_front(&head, 7);
+	ft_list_push_front(&head, 1);
+	ft_list_push_front(&head, 1);
+	ft_list_push_front(&head, 7);
+	ft_list_push_front(&head, 6);
+	ft_list_push_front(&head, 4);
+	ft_list_push_front(&head, 1);
+	ft_list_push_front(&head, 7);
+
+	test_list_sort(head);
+	// test_list_rm(head);
 }
 
 int main()
 {
 	test_list();
-	system("leaks a.out");
+	// system("leaks a.out");
 	return (0);
 }
