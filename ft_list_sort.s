@@ -45,28 +45,35 @@ section .text
 
 _ft_list_sort:
 	mov rbx, rsi		; function pointer now stored in rbx
-	mov r12, rdi		; head of list now stored in r12
+	mov r12, rdi		; head of list now stored in r12 ; TODO: Do i need this?
 	mov r13, rdi		; store smallest item in r13
 	mov r14, rdi		; current item iterated over stored in r14
 						; ..Can i store the same value in two places?
 
 	push rdi
 	push rsi
+	push rax
+
+L1:
+	mov rax, 0
 						; compare smallest (r13) with current index ()
-	mov rdi, [r12]		; Move value of first node into param
-	mov r9, [r12 + 8]	; store pointer to second node into r9
-	mov rsi, [r9]		; get value of data in r9 as param for function call
+	mov rdi, [r13]		; Move value of smallest node into first param
+	mov rsi, [r14]		; get data from current oterated over node into param
 	call rbx			; call function from function pointer
-	cmp rax, 0			; if arg 1 is smaller, rax is negative
-	jle store_first
-	mov r13, [r12 + 8]
-	jmp continue
-store_first:
-	mov r13, r12
+	cmp eax, 0			; compare 4 byte register return (int) to 0
+	jl continue			; if arg 1 is smaller, rax is negative -> do nothing
+	mov r13, r14		; else store current node to smallest
 continue:
 
+	mov r14, [r14 + 8]
+	cmp r14, 0x0
+	je finish					; TODO: could also do jump if zero
+	jmp L1
+
+finish:
 	pop rsi
 	pop rdi
+	pop rax
 
 	mov rax, r13
 

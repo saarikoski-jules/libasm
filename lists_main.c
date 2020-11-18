@@ -5,7 +5,7 @@ void c_list_sort(t_list **begin_list, int (*cmp)());
 
 int compare(int a, int b)
 {
-	printf("a: %d b: %d\n", a, b);
+	printf("smallest: %d cur: %d return: %d\n", a, b, a - b);
 	// if (a < b)
 	// 	return (0);
 	// return (1);
