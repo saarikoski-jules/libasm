@@ -65,11 +65,15 @@ list_move_back_end:
 
 _ft_list_sort:
 	mov rbx, rsi		; function pointer now stored in rbx
-	mov r12, rdi		; head of list now stored in r12 ; TODO: Do i need this?
-	mov r13, 0x0		; store head of new list here
 
 	push rsi
 	push rdi
+
+	lea r9, [rdi]
+	mov rdi, [r9]
+
+	mov r12, rdi	; head of list now stored in r12 ; TODO: Do i need this?
+	mov r13, 0x0		; store head of new list here
 
 L4:
 	call _get_smallest_node

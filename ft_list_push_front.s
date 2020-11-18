@@ -20,7 +20,6 @@ _ft_list_push_front:
 	mov [rax + 8], r9	; move contents of temp register to next 
 	mov [rdi], rax		; move pointer of the struct to head
 	ret
-
 error:
 	mov rax, 0			; avoid segfaults on null pointers
 	ret

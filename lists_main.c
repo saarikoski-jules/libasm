@@ -6,10 +6,18 @@ void c_list_sort(t_list **begin_list, int (*cmp)());
 int compare(int a, int b)
 {
 	printf("smallest: %d cur: %d return: %d\n", a, b, a - b);
-	// if (a < b)
-	// 	return (0);
-	// return (1);
 	return (a - b);
+}
+
+static void print_list(t_list *head)
+{
+	t_list *tmp = head;
+	printf("printing list:\n");
+	while(tmp != NULL)
+	{
+		printf("%p, %d, next: %p\n", tmp, tmp->data, tmp->next);
+		tmp = tmp->next;
+	}
 }
 
 int main()
@@ -29,27 +37,19 @@ int main()
 	ft_list_push_front(&head, 1);
 
 	t_list *cur = head;
-	while(cur != NULL)
-	{
-		printf("%p, %d\n", cur, cur->data);
-		cur = cur->next;
-	}
-	// c_list_sort(&head, compare);
-	ft_list_sort(head, compare);
-	// if (ret == NULL)
-		// printf("NULL\n");
-	// else
-		// printf("return: %p, %d\n", ret, ret->data);
-	// t_list *tmp = ret;
-	t_list *tmp = head;
-	printf("old head:\n");
-	while(tmp != NULL)
-	{
-		printf("%p, %d, next: %p\n", tmp, tmp->data, tmp->next);
-		tmp = tmp->next;
-	}
 
-	
+	ft_list_sort(&head, compare);
+	print_list(head);
+	printf("\n\n");
+	// void *data;
+	// data = 2;
+	// ft_list_remove_if(&head, 2, compare);
+	// printf("after removed item\n");
+	// print_list(head);
+
+	// ft_list_remove_if(&head, )
+
+
 
 	// cur = head;
 	// printf("head:\n");
