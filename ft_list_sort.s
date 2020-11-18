@@ -72,7 +72,7 @@ _ft_list_sort:
 	lea r9, [rdi]
 	mov rdi, [r9]
 
-	mov r12, rdi	; head of list now stored in r12 ; TODO: Do i need this?
+	mov r12, rdi		; head of list now stored in r12 ; TODO: Do i need this?
 	mov r13, 0x0		; store head of new list here
 
 L4:

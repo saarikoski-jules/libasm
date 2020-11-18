@@ -43,9 +43,9 @@ int main()
 	printf("\n\n");
 	// void *data;
 	// data = 2;
-	// ft_list_remove_if(&head, 2, compare);
-	// printf("after removed item\n");
-	// print_list(head);
+	t_list *new = ft_list_remove_if(&head, 7, compare);
+	printf("after removed item\n");
+	print_list(new);
 
 	// ft_list_remove_if(&head, )
 
