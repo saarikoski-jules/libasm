@@ -24,9 +24,9 @@ section .text
 ; 	call rbx			; call function from function pointer
 ; 	ret
 
-_compare:
-	mov rax, r10
-	ret
+; _compare:
+	; mov rax, r10
+	; ret
 	; mov rdi, [r10]		; Move value of first node into param
 	; mov r9, [r10 + 8]	; store pointer to second node into r9
 	; mov rsi, [r9]		; get value of data in r9 as param for function call
@@ -39,36 +39,36 @@ _compare:
 	; mov rax, r10
 
 
+; non volatile registers to use: rbx, rbp, r12 - r15
+
+
+
 _ft_list_sort:
 	mov rbx, rsi		; function pointer now stored in rbx
-	mov r10, rdi		; head of list now stored in r10
-	mov r8, rdi			; store smallest item in r8
+	mov r12, rdi		; head of list now stored in r12
+	mov r13, rdi		; store smallest item in r13
+	mov r14, rdi		; current item iterated over stored in r14
 						; ..Can i store the same value in two places?
 
-	; push rax
-	; push r10
 	push rdi
 	push rsi
-
-
-	mov rdi, [r10]		; Move value of first node into param
-	mov r9, [r10 + 8]	; store pointer to second node into r9
+						; compare smallest (r13) with current index ()
+	mov rdi, [r12]		; Move value of first node into param
+	mov r9, [r12 + 8]	; store pointer to second node into r9
 	mov rsi, [r9]		; get value of data in r9 as param for function call
 	call rbx			; call function from function pointer
-	
-	; cmp rax, 0			; if arg 1 is smaller, rax is negative
-	; jle store
-	; mov	rax, [r10 + 8]	; if arg 1 is larger, store arg 2
-; store:
-	mov rax, r10
-
-
+	cmp rax, 0			; if arg 1 is smaller, rax is negative
+	jle store_first
+	mov r13, [r12 + 8]
+	jmp continue
+store_first:
+	mov r13, r12
+continue:
 
 	pop rsi
 	pop rdi
-	; pop r10
 
-	; mov rax, r8
+	mov rax, r13
 
 	ret
 
