@@ -5,7 +5,7 @@ void c_list_sort(t_list **begin_list, int (*cmp)());
 
 int compare(int a, int b)
 {
-	printf("smallest: %d cur: %d return: %d\n", a, b, a - b);
+	// printf("smallest: %d cur: %d return: %d\n", a, b, a - b);
 	return (a - b);
 }
 
@@ -20,7 +20,22 @@ static void print_list(t_list *head)
 	}
 }
 
-int main()
+static void free_list(t_list **head)
+{
+	t_list *cur;
+	t_list *to_free;
+
+	cur = *head;
+	while(cur != NULL)
+	{
+		to_free = cur;
+		cur = cur->next;
+		free(to_free);
+	}
+	*head = NULL;
+}
+
+void test_list()
 {
 	t_list *head = (t_list *)malloc(sizeof(t_list));
 	head->next = NULL;
@@ -43,26 +58,31 @@ int main()
 
 	t_list *cur = head;
 
-	// ft_list_sort(&head, compare);
 	print_list(head);
 	printf("\n\n");
-	// void *data;
-	// data = 2;
+
 	ft_list_remove_if(&head, 1, compare);
 	printf("after removed item\n");
 	print_list(head);
 
-	// ft_list_remove_if(&head, )
+	ft_list_remove_if(&head, 2, compare);
+	ft_list_remove_if(&head, 3, compare);
+	ft_list_remove_if(&head, 4, compare);
+	ft_list_remove_if(&head, 5, compare);
+	ft_list_remove_if(&head, 6, compare);
+	ft_list_remove_if(&head, 7, compare);
+	ft_list_remove_if(&head, 8, compare);
+	ft_list_remove_if(&head, 9, compare);
+	ft_list_remove_if(&head, 10, compare);
+	print_list(head);
 
+	printf("lol\n");
 
+}
 
-	// cur = head;
-	// printf("head:\n");
-	// while(cur != NULL)
-	// {
-	// 	printf("%d\n", cur->data);
-	// 	cur = cur->next;
-	// }
-
+int main()
+{
+	test_list();
+	system("leaks a.out");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:48:51 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/18 16:08:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/18 16:27:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int		ft_atoi_base(char *str, char *base);
 void	ft_list_push_front(t_list **begin_list, void *data);
 int		ft_list_size(t_list *head);
 void	ft_list_sort(t_list **head, int (*cmp)());
-// void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (cmp)());
 void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (cmp)());
 
 
