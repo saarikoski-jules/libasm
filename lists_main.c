@@ -82,10 +82,10 @@ void test_list()
 	ft_list_push_front(&head, 9);
 	ft_list_push_front(&head, 7);
 	ft_list_push_front(&head, 1);
+	ft_list_push_front(&head, 4);
 	ft_list_push_front(&head, 1);
 	ft_list_push_front(&head, 7);
 	ft_list_push_front(&head, 6);
-	ft_list_push_front(&head, 4);
 	ft_list_push_front(&head, 1);
 	ft_list_push_front(&head, 7);
 

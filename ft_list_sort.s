@@ -103,5 +103,5 @@ end_sort:
 	pop rdi
 	pop rsi
 
-	mov rdi, r13
+	mov [rdi], r13
 	ret
