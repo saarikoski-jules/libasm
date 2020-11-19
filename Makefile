@@ -6,31 +6,32 @@
 #    By: jsaariko <jsaariko@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 12:47:23 by jsaariko      #+#    #+#                  #
-#    Updated: 2020/11/19 10:08:55 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/11/19 10:19:04 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libasm.a
 
-FILES = 	ft_strlen \
-			ft_strcpy \
-			ft_strcmp \
-			ft_write \
-			ft_read \
-			ft_strdup \
-			ft_atoi_base \
-			ft_list_push_front \
-			ft_list_size \
-			ft_list_sort \
-			list_scoot \
-			ft_list_remove_if \
+SRCS = srcs/
+
+FILES = 	$(SRCS)ft_strlen \
+			$(SRCS)ft_strcpy \
+			$(SRCS)ft_strcmp \
+			$(SRCS)ft_write \
+			$(SRCS)ft_read \
+			$(SRCS)ft_strdup \
+			$(SRCS)ft_atoi_base \
+			$(SRCS)ft_list_push_front \
+			$(SRCS)ft_list_size \
+			$(SRCS)ft_list_sort \
+			$(SRCS)list_scoot \
+			$(SRCS)ft_list_remove_if \
 
 S_FILES = 	$(FILES:=.s)
 
 O_FILES = $(FILES:=.o)
 
-# TEST_MAIN = tests.c
-TEST_MAIN = tests.c
+TESTS = tests.c
 
 all: $(NAME)
 
@@ -41,13 +42,14 @@ $(NAME): $(O_FILES)
 	ar rc $(NAME) $(O_FILES)
 
 test: re
-	gcc $(TEST_MAIN) $(NAME)
+	gcc $(TESTS) $(NAME)
 
 clean:
 	rm -f $(O_FILES)
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f a.out
 
 re: fclean all
 	
