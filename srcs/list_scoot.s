@@ -6,6 +6,9 @@ section .text
 ; rsi: void *value
 ; return new t_list *head
 
+
+; TODO: Breaks when only one list element?
+
 _asm_list_scoot:		; TODO: when rdi == NULL or rdi->next == NULL
 	mov r9, rdi		; head in r9
 	mov r10, rdi	; store prev value

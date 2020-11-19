@@ -6,7 +6,7 @@
 #    By: jsaariko <jsaariko@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 12:47:23 by jsaariko      #+#    #+#                  #
-#    Updated: 2020/11/19 12:33:20 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/11/19 14:02:47 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,14 +26,19 @@ FILES = 	$(SRCS)ft_strlen \
 			$(SRCS)ft_list_sort \
 			$(SRCS)list_scoot \
 			$(SRCS)ft_list_remove_if \
+			strdup_crasher \
 
 S_FILES = 	$(FILES:=.s)
 
 O_FILES = $(FILES:=.o)
 
 TESTS = tests.c
+# TESTS = strdup_die.c
+# TESTS = testing_more.c
 
 all: $(NAME)
+
+bonus: all
 
 %.o: %.s
 	nasm -f macho64 $<
@@ -50,6 +55,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	rm -f a.out
+
 
 re: fclean all
 	
