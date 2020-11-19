@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main_strlen.c                                      :+:    :+:            */
+/*   tests.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/08 10:43:47 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/19 10:12:05 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,87 @@
 #include <unistd.h>
 #include <sys/errno.h>
 #include <fcntl.h>
+
+
+static void print_list(t_list *head)
+{
+	t_list *tmp = head;
+	printf("printing list:\n");
+	while(tmp != NULL)
+	{
+		printf("%p, %s, next: %p\n", tmp, tmp->data, tmp->next);
+		tmp = tmp->next;
+	}
+}
+
+static void free_list(t_list **head)
+{
+	t_list *cur;
+	t_list *to_free;
+
+	cur = *head;
+	while(cur != NULL)
+	{
+		to_free = cur;
+		cur = cur->next;
+		free(to_free);
+	}
+	*head = NULL;
+}
+
+void test_list_rm(t_list **head)
+{
+	printf("Testing list remove\n");
+	print_list(*head);
+	ft_list_remove_if(head, "a", ft_strcmp);
+	printf("after removed item\n");
+	print_list(*head);
+	ft_list_remove_if(head, "b", ft_strcmp);
+	ft_list_remove_if(head, "c", ft_strcmp);
+	ft_list_remove_if(head, "d", ft_strcmp);
+	ft_list_remove_if(head, "e", ft_strcmp);
+	ft_list_remove_if(head, "f", ft_strcmp);
+	ft_list_remove_if(head, "g", ft_strcmp);
+	ft_list_remove_if(head, "h", ft_strcmp);
+	ft_list_remove_if(head, "i", ft_strcmp);
+	ft_list_remove_if(head, "j", ft_strcmp);
+	printf("After removed all items\n");
+	print_list(*head);
+	printf("\n");
+}
+
+void test_list_sort(t_list **head)
+{
+	printf("Testing list sort\n");
+	printf("before sort\n");
+	print_list(*head);
+	ft_list_sort(head, ft_strcmp);
+	printf("after sort\n");
+	print_list(*head);
+	printf("\n");
+}
+
+void test_list_push(t_list **head)
+{
+	printf("Testing list push front\n");
+	ft_list_push_front(head, "d");
+	ft_list_push_front(head, "m");
+	ft_list_push_front(head, "f");
+	ft_list_push_front(head, "l");
+	ft_list_push_front(head, "g");
+	ft_list_push_front(head, "h");
+	ft_list_push_front(head, "n");
+	ft_list_push_front(head, "b");
+	ft_list_push_front(head, "j");
+	ft_list_push_front(head, "e");
+	ft_list_push_front(head, "a");
+	ft_list_push_front(head, "i");
+	ft_list_push_front(head, "k");
+	ft_list_push_front(head, "c");
+
+	print_list(*head);
+	printf("\n");
+}
 
 // strlen segfaults with a NULL input
 void test_strlen(const char *str)
@@ -89,6 +170,7 @@ void test_write(int fd, char *str, size_t byte_count)
 {
 	int ret_real;
 	int ret_ft;
+
 	int errno_real;
 	int errno_ft;
 
@@ -157,6 +239,19 @@ void test_strdup(const char *str)
 	printf("ft_strdup\t%p\n[%s]\n", s_ft, s_ft);
 }
 
+void test_lists()
+{
+	t_list *head;
+
+	head = (t_list *)malloc(sizeof(t_list));
+	head->next = NULL;
+	head->data = "a";
+	
+	// test_list_push(&head);
+	// test_list_sort(&head);
+	// test_list_rm(&head);
+}
+
 int main()
 {
 	// test_strlen("11");
@@ -165,5 +260,6 @@ int main()
 	// test_write(1, NULL, 5);
 	// test_read("help.txtt", 1);
 	// test_strdup("1234567");
+	// test_lists();
 	return (0);
 }
