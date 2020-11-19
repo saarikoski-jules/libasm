@@ -145,32 +145,39 @@ L8:								; save strlen of charset into base
 	mov rax, 0					; zero out rax so I can build my int there
 L9:								; main loop
 	inc rcx
+	
 	push rax					; store result value to get current number in string
+	
 	call _find_number			; translate current char into a number
 	mov rbx, rax				; store result in rbx
+	
 	pop rax						; get result integer back
+
 	push rdi					; save number string on stack
 	push rsi					; save charset strin gon stack
 	push rcx					; save index on the stack
+	
 	mov rdi, rax				; multiply current result
 	mov rsi, rdx				; by base
 	call _multiply				; result of multiplication is stored in rax, rax = rax * rdx
+	
 	pop rcx						; get index back
 	pop rsi						; get charset back from stack
 	pop rdi						; get number string back from stack
+	
 	add rax, rbx				; add new number to the back
 	cmp byte [rdi + rcx + 1], 0	; check if next char is the null byte
 	jne L9						; if not, loop again
 	cmp byte [rdi], 45			; check if first char of num is -
 	jne completed				; if not -, we're done here
 	neg rax						; if the first char is -, get the negative value
+	
 completed:
+	pop rbx
 	ret							; return actual result
 invalid_params:
-	mov rax, 0					; if params are invalid, return 0
-
 	pop rbx
-
+	mov rax, 0					; if params are invalid, return 0
 	ret
 
 ; TODO: shouldn't use ah as temporary register for parst where rax is important
