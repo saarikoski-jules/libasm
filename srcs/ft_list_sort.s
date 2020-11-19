@@ -3,13 +3,7 @@ section .text
 	extern _asm_list_scoot
 
 ; rdi: head
-; rsi: sorting function
-
-; iterate over each item.
-; if current item and next item are in the wrong order, reorder
-; keep track of swaps
-; if zero swaps occur on a given iteration, you're done
-
+; rsi: compare function
 
 _get_smallest_node:
 	push r13
@@ -60,10 +54,13 @@ list_move_back_end:
 	ret
 
 
-
-; non volatile registers to use: rbx, rbp, r12 - r15
-
 _ft_list_sort:
+
+	push r12
+	push r13
+	push r14
+	push rbx
+
 	mov rbx, rsi		; function pointer now stored in rbx
 
 	push rsi
@@ -104,4 +101,10 @@ end_sort:
 	pop rsi
 
 	mov [rdi], r13
+
+	pop rbx
+	pop r14
+	pop r13
+	pop r12
+
 	ret

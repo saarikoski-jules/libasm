@@ -122,6 +122,9 @@ L11:
 ; rbx: current number
 ; ah: temp comparison register
 _ft_atoi_base:
+
+	push rbx
+
 	call _validate				; check if params are valid
 	cmp rax, 0					; if not valid, go to invalid_params
 	je invalid_params
@@ -165,6 +168,9 @@ completed:
 	ret							; return actual result
 invalid_params:
 	mov rax, 0					; if params are invalid, return 0
+
+	pop rbx
+
 	ret
 
 ; TODO: shouldn't use ah as temporary register for parst where rax is important

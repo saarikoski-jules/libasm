@@ -10,6 +10,10 @@ section .text
 
 _ft_list_remove_if:
 
+	push r12
+	push r13
+	push r14
+	push r15
 
 	lea r9, [rdi]	; get address of [rdi]
 	mov r12, [r9]	; store head in r12
@@ -44,4 +48,10 @@ dont_scoot:			; else check next one
 	pop rdx			; get params back
 
 	mov [rdi], r12	; move possibly updated list to head param
+
+	pop r15
+	pop r14
+	pop r13
+	pop r12
+
 	ret
