@@ -55,6 +55,10 @@ list_move_back_end:
 
 
 _ft_list_sort:
+	cmp rdi, 0x0
+	je end
+	cmp byte [rdi], 0x0
+	je end
 
 	push r12
 	push r13
@@ -107,4 +111,5 @@ end_sort:
 	pop r13
 	pop r12
 
+end:
 	ret
