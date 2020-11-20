@@ -6,7 +6,7 @@
 ;    By: jsaariko <jsaariko@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/10/03 14:49:51 by jsaariko      #+#    #+#                  ;
-;    Updated: 2020/11/19 16:00:59 by jsaariko      ########   odam.nl          ;
+;    Updated: 2020/11/20 15:37:07 by jsaariko      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -23,11 +23,12 @@ loop:
 	cmp byte [rdi + rcx], 0		; if not different, check if its the terminator
 	jne loop					; if not, go again
 ret_val:						; else, finish up
-	xor rax, rax				; zero out rax
-	mov al, byte [rdi + rcx]	; move index value of s1 to return register
-	sub al, byte [rsi + rcx]	; substract char in s2 from it
-	jnc	end						; if substraction overflows, negate, as the real strcmp would store the overflow as unsigned char
+	mov rax, 0					; zero out rax
+	mov al, [rdi + rcx]			; move index value of s1 to return register
+	sub al, [rsi + rcx]			; substract char in s2 from it
+	jnc	end						; if substraction overflows, get the inverse of the result
 
-	neg rax						; negate value stored in al
+	neg al						; invert the number accurately by first flipping the single byte
+	neg rax						; and then flipping everything including the overflow
 end:
 	ret
