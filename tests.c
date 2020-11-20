@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/19 16:50:20 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/20 12:07:50 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,19 @@ void test_list_push(t_list **head)
 {
 	printf("Testing list push front\n");
 	ft_list_push_front(head, "d");
-	// ft_list_push_front(head, "m");
-	// ft_list_push_front(head, "f");
-	// ft_list_push_front(head, "l");
-	// ft_list_push_front(head, "g");
-	// ft_list_push_front(head, "h");
-	// ft_list_push_front(head, "n");
-	// ft_list_push_front(head, "b");
-	// ft_list_push_front(head, "j");
-	// ft_list_push_front(head, "e");
-	// ft_list_push_front(head, "a");
-	// ft_list_push_front(head, "i");
-	// ft_list_push_front(head, "k");
-	// ft_list_push_front(head, "c");
+	ft_list_push_front(head, "m");
+	ft_list_push_front(head, "f");
+	ft_list_push_front(head, "l");
+	ft_list_push_front(head, "g");
+	ft_list_push_front(head, "h");
+	ft_list_push_front(head, "n");
+	ft_list_push_front(head, "b");
+	ft_list_push_front(head, "j");
+	ft_list_push_front(head, "e");
+	ft_list_push_front(head, "a");
+	ft_list_push_front(head, "i");
+	ft_list_push_front(head, "k");
+	ft_list_push_front(head, "c");
 
 	print_list(*head);
 	printf("\n");
@@ -107,9 +107,9 @@ void test_lists()
 	head->next = NULL;
 	head->data = "a";
 
-	// test_list_push(&head);
+	test_list_push(&head);
 	test_list_sort(&head);
-	// test_list_rm(&head);
+	test_list_rm(&head);
 }
 
 // strlen segfaults with a NULL input
@@ -262,17 +262,14 @@ void test_strdup(const char *str)
 //strtol handles whitespace and other non matching chars differently.
 //	atoi_base immediately returns 0 when faced with extraneous + or - signs
 //	or any char not specified in base
-void test_atoi_base(const char *str, const char *base)
+void test_atoi_base(char *str, char *base)
 {
-	// char str[] = "10111";
-	// char base[] = "0123";
 	char *end;
 	int strtol_base = ft_strlen(base);
 	int len = ft_strlen(str);
 
 	printf("%d\n", ft_atoi_base(str, base));
 	printf("strtol: %ld\n", strtol(str, &end, strtol_base));
-	// printf("[%s]\n", end);
 }
 
 int main()
