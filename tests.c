@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/20 18:45:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/20 19:26:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ void test_list_push(t_list **head)
 	ft_list_push_front(head, "i");
 	ft_list_push_front(head, "k");
 	ft_list_push_front(head, "c");
+	ft_list_push_front(head, "b");
+	ft_list_push_front(head, "a");
 	printf("After:\n");
 	if (head != NULL)
 		print_list(*head);
@@ -338,12 +340,12 @@ void test_lists()
 	head->data = "o";
 	head->next = NULL;
 
-	test_list_sort(&head);
 	test_list_push(&head);
-	test_list_size(head);
 	test_list_sort(&head);
-	test_list_rm(&head);
-	test_list_size(head);
+	// test_list_size(head);
+	// test_list_sort(&head);
+	// test_list_rm(&head);
+	// test_list_size(head);
 	free_list(&head);
 }
 

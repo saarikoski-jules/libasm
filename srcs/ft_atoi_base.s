@@ -2,6 +2,11 @@ section .text
 	global _ft_atoi_base
 	extern _ft_strlen
 
+
+; Check if there are duplicate chars in charset
+; return values:
+; 	0 = invalid
+; 	1 = valid
 _check_duplicate:
 	mov rcx, -1					; first iterator starts from -1
 L2:
@@ -25,6 +30,11 @@ L4:
 	mov rax, 0					; return 0 if invalid
 	ret
 
+
+; Check if charset is valid
+; return values:
+; 	0 = invalid
+; 	1 = valid
 _validate_charset:
 	cmp rsi, 0x0				; check if string is NULL
 	je invalid_charset			; if NULL, invalid
@@ -46,6 +56,10 @@ invalid_charset:
 	mov rax, 0					; return 0
 	ret
 
+; Check if number param is valid
+; return values:
+; 	0 = invalid
+; 	1 = valid
 _validate_num:
 	cmp rdi, 0x0				; check if num string is null
 	je invalid_num				; invalid argument
@@ -58,7 +72,6 @@ _validate_num:
 	jne L5						; if not, skip incrementing
 L12:	
 	inc rcx						; increment rcx to skip + or -
-
 L5:								; start actual loop
 	inc rcx						; increment num iterator
 	mov rbx, -1					; set iterator charset
@@ -81,6 +94,10 @@ valid_num:
 	mov rax, 1					; if valid, return 1
 	ret
 
+; Validate params
+; return values:
+; 	0 = invalid
+; 	1 = valid
 _validate:
 	call _validate_charset
 	cmp rax, 0					; if charset is not valid, return 0
@@ -91,6 +108,8 @@ invalid:
 	mov rax, 0					; if invalid, return 0
 	ret
 
+; Find value of the current char from charset
+; returns numeric translation given char stored in [rdi + rcx]
 _find_number:
 	mov ah, [rdi + rcx]			; move current char to be compared
 	push rcx					; save num str index
@@ -103,6 +122,7 @@ L10:
 	pop rcx						; get num str index back
 	ret
 
+; Multiplies rdi by rsi
 _multiply:
 	mov rcx, rsi				; use number of times as iterator
 	mov rax, 0					; start off from 0
@@ -113,16 +133,12 @@ L11:
 	jne L11						; if not, add one more
 	ret
 
-; register use:
-; rdi: number to translate
-; rsi: charset
-; rcx: index
-; rax: final int
-; rdx, base
-; rbx: current number
-; ah: temp comparison register
+; Translates a charstring into an int based on provided charset
+; params:
+;	rdi: char *num
+;	rsi: char *charset
+; returns an int based on param strings
 _ft_atoi_base:
-
 	push rbx
 
 	call _validate				; check if params are valid
@@ -171,15 +187,14 @@ L9:								; main loop
 	cmp byte [rdi], 45			; check if first char of num is -
 	jne completed				; if not -, we're done here
 	neg rax						; if the first char is -, get the negative value
-	
 completed:
-	pop rbx
+
+	pop rbx						; make sure to get rbx back
+
 	ret							; return actual result
 invalid_params:
-	pop rbx
+
+	pop rbx						; make sure to get rbx baaaaaaack
+
 	mov rax, 0					; if params are invalid, return 0
 	ret
-
-; TODO: shouldn't use ah as temporary register for parst where rax is important
-; TODO: Test if this works instead of adding rcx into rbx which is zero, if you can just use mov and the value is stored in both
-; TODO: Should I use ah as the register...?

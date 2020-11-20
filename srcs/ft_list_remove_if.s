@@ -7,7 +7,6 @@ section .text
 ; rdi: t_list **begin_list
 ; rsi: void* data
 ; rdx: int cmp()
-
 _ft_list_remove_if:
 
 	cmp rdi, 0x0
