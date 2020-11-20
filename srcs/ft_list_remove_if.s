@@ -1,6 +1,6 @@
 section .text
 	global _ft_list_remove_if
-	extern _asm_list_scoot
+	extern _list_scoot
 	extern _free
 
 ; Params:
@@ -9,6 +9,11 @@ section .text
 ; rdx: int cmp()
 
 _ft_list_remove_if:
+
+	cmp rdi, 0x0
+	je end
+	cmp qword [rdi], 0x0
+	je end
 
 	push r12
 	push r13
@@ -34,7 +39,7 @@ L1:
 scoot:				; if equal, remove item from list
 	mov rdi, r12
 	mov rsi, r13
-	call _asm_list_scoot
+	call _list_scoot
 	mov r12, rax
 	mov rdi, r13
 	call _free
@@ -54,4 +59,5 @@ dont_scoot:			; else check next one
 	pop r13
 	pop r12
 
+end:
 	ret

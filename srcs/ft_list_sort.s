@@ -1,6 +1,6 @@
 section .text
 	global _ft_list_sort
-	extern _asm_list_scoot
+	extern _list_scoot
 
 ; rdi: head
 ; rsi: compare function
@@ -57,6 +57,8 @@ list_move_back_end:
 _ft_list_sort:
 	cmp rdi, 0x0
 	je end
+	cmp qword [rdi], 0x0
+	je end
 
 	push r12
 	push r13
@@ -70,6 +72,8 @@ _ft_list_sort:
 
 	lea r9, [rdi]
 	mov rdi, [r9]
+	cmp rdi, 0x0
+	je end
 
 	mov r12, rdi		; head of list now stored in r12 ; TODO: Do i need this?
 	mov r13, 0x0		; store head of new list here
@@ -82,12 +86,17 @@ L4:
 	mov rax, 0
 	mov rdi, r12		; head of list
 	mov rsi, r14		; param2, elem to remove
-	call _asm_list_scoot
+	call _list_scoot
 	mov r12, rax		; head of new list into r12
 
-	mov qword [r14 + 8], 0
+	cmp r12, 0x0
+
+	mov qword [r14 + 8], 0	; smallest->next = NULL
 
 	call _list_move_back
+
+	cmp r12, 0x0
+	je end_sort
 
 	mov r11, [r12 + 8]
 	cmp r11, 0x0
