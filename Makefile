@@ -6,7 +6,7 @@
 #    By: jsaariko <jsaariko@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 12:47:23 by jsaariko      #+#    #+#                  #
-#    Updated: 2020/11/19 14:02:47 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/11/20 15:50:41 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,6 @@ S_FILES = 	$(FILES:=.s)
 O_FILES = $(FILES:=.o)
 
 TESTS = tests.c
-# TESTS = strdup_die.c
-# TESTS = testing_more.c
 
 all: $(NAME)
 

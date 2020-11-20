@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/20 12:07:50 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/20 15:49:36 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void print_list(t_list *head)
 		printf("%p, %s, next: %p\n", tmp, tmp->data, tmp->next);
 		tmp = tmp->next;
 	}
-	// printf("lol");
 }
 
 static void free_list(t_list **head)
@@ -70,11 +69,27 @@ void test_list_sort(t_list **head)
 {
 	printf("Testing list sort\n");
 	printf("before sort\n");
-	// print_list(*head);
+	print_list(*head);
 	ft_list_sort(head, ft_strcmp);
 	printf("after sort\n");
-	// print_list(*head);
+	print_list(*head);
 	printf("\n");
+}
+
+void test_list_size(t_list **head)
+{
+	t_list	*cur;
+	int		i;
+
+	printf("ft_list_size:\t%d\n", ft_list_size(*head));
+	cur = *head;
+	i = 0;
+	while (cur != NULL)
+	{
+		cur = cur->next;
+		i++;
+	}
+	printf("real list size:\t%d\n\n", i);
 }
 
 void test_list_push(t_list **head)
@@ -108,8 +123,10 @@ void test_lists()
 	head->data = "a";
 
 	test_list_push(&head);
+	test_list_size(&head);
 	test_list_sort(&head);
 	test_list_rm(&head);
+	test_list_size(&head);
 }
 
 // strlen segfaults with a NULL input
@@ -274,16 +291,13 @@ void test_atoi_base(char *str, char *base)
 
 int main()
 {
-	// test_strlen("11");
-	// test_strcpy("111111111111111111", "223333333");
-	// char str[] = "\xff\xff";
-	// char str2[] = "\xff";
-	// printf("str %d, str2 %d res: %d\n", str[1], str2[0], str[1] - str2[1]);
-	// test_strcmp(str, str2);
-	// test_write(1, NULL, 5);
-	// test_read("help.txtt", 1);
-	// test_strdup("1234567");
-	// test_atoi_base("10111", "123");
+	test_strlen("11");
+	test_strcpy("111111111111111111", "223333333");
+	test_strcmp("\xff", "\xff\xff");
+	test_write(1, NULL, 5);
+	test_read("help.txtt", 1);
+	test_strdup("1234567");
+	test_atoi_base("10111", "123");
 	test_lists();
 	return (0);
 }

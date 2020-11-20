@@ -6,7 +6,7 @@
 ;    By: jsaariko <jsaariko@student.codam.nl>         +#+                      ;
 ;                                                    +#+                       ;
 ;    Created: 2020/10/02 12:47:36 by jsaariko      #+#    #+#                  ;
-;    Updated: 2020/10/02 14:38:46 by jsaariko      ########   odam.nl          ;
+;    Updated: 2020/11/20 15:17:00 by jsaariko      ########   odam.nl          ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -19,4 +19,5 @@ loop:
 	inc rax						; Increment counter
 	cmp byte [rdi + rax], 0		; Compare counter index of string to null
 	jne loop					; If not null, go again
+
 	ret							; return value of counter in rax
