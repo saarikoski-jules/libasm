@@ -6,7 +6,7 @@
 #    By: jsaariko <jsaariko@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/02 12:47:23 by jsaariko      #+#    #+#                  #
-#    Updated: 2020/11/20 15:50:41 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/11/20 15:51:31 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ FILES = 	$(SRCS)ft_strlen \
 			$(SRCS)ft_list_sort \
 			$(SRCS)list_scoot \
 			$(SRCS)ft_list_remove_if \
-			strdup_crasher \
 
 S_FILES = 	$(FILES:=.s)
 

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/02 12:47:29 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/20 15:49:36 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/20 18:45:46 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include <sys/errno.h>
 #include <fcntl.h>
 
+/*
+** List tests 
+*/
 
 static void print_list(t_list *head)
 {
@@ -47,10 +50,16 @@ static void free_list(t_list **head)
 void test_list_rm(t_list **head)
 {
 	printf("Testing list remove\n");
-	print_list(*head);
+	if (head != NULL)
+		print_list(*head);
+	else
+		printf("NULL\n");
 	ft_list_remove_if(head, "a", ft_strcmp);
 	printf("after removed item\n");
-	print_list(*head);
+	if (head != NULL)
+		print_list(*head);
+	else
+		printf("NULL\n");
 	ft_list_remove_if(head, "b", ft_strcmp);
 	ft_list_remove_if(head, "c", ft_strcmp);
 	ft_list_remove_if(head, "d", ft_strcmp);
@@ -61,7 +70,10 @@ void test_list_rm(t_list **head)
 	ft_list_remove_if(head, "i", ft_strcmp);
 	ft_list_remove_if(head, "j", ft_strcmp);
 	printf("After removed all items\n");
-	print_list(*head);
+	if (head != NULL)
+		print_list(*head);
+	else
+		printf("NULL\n");
 	printf("\n");
 }
 
@@ -69,20 +81,26 @@ void test_list_sort(t_list **head)
 {
 	printf("Testing list sort\n");
 	printf("before sort\n");
-	print_list(*head);
+	if (head != NULL)
+		print_list(*head);
+	else
+		printf("NULL\n");
 	ft_list_sort(head, ft_strcmp);
 	printf("after sort\n");
-	print_list(*head);
+	if (head != NULL)
+		print_list(*head);
+	else
+		printf("NULL\n");
 	printf("\n");
 }
 
-void test_list_size(t_list **head)
+void test_list_size(t_list *head)
 {
 	t_list	*cur;
 	int		i;
 
-	printf("ft_list_size:\t%d\n", ft_list_size(*head));
-	cur = *head;
+	printf("ft_list_size:\t%d\n", ft_list_size(head));
+	cur = head;
 	i = 0;
 	while (cur != NULL)
 	{
@@ -94,7 +112,11 @@ void test_list_size(t_list **head)
 
 void test_list_push(t_list **head)
 {
-	printf("Testing list push front\n");
+	printf("Testing list push front\nBefore:\n");
+	if (head != NULL)
+		print_list(*head);
+	else
+		printf("NULL\n");
 	ft_list_push_front(head, "d");
 	ft_list_push_front(head, "m");
 	ft_list_push_front(head, "f");
@@ -109,27 +131,46 @@ void test_list_push(t_list **head)
 	ft_list_push_front(head, "i");
 	ft_list_push_front(head, "k");
 	ft_list_push_front(head, "c");
-
-	print_list(*head);
+	printf("After:\n");
+	if (head != NULL)
+		print_list(*head);
+	else
+		printf("NULL\n");
 	printf("\n");
 }
 
-void test_lists()
+/*
+**	Notes:
+**	strtol and ft_atoi_base work slightly differently.
+**	Differences:
+**	- strtol returns a long, atoi_base can only deal with ints
+**	- strtol only works with charset 0123456789ABCDEFG..., if using
+**		any other chars, there will be discrepencies
+**	- strtol handles whitespace and other non matching chars differently.
+**		atoi_base immediately returns 0 when faced with extraneous + or
+**		- signs or any char not specified in base
+*/
+
+void test_atoi_base(char *str, char *base)
 {
-	t_list *head;
+	char *end;
+	int strtol_base = ft_strlen(base);
+	int len = ft_strlen(str);
 
-	head = (t_list *)malloc(sizeof(t_list));
-	head->next = NULL;
-	head->data = "a";
-
-	test_list_push(&head);
-	test_list_size(&head);
-	test_list_sort(&head);
-	test_list_rm(&head);
-	test_list_size(&head);
+	printf("atoi_base\t%d\n", ft_atoi_base(str, base));
+	printf("strtol:\t\t%ld\n", strtol(str, &end, strtol_base));
+	printf("\n");
 }
 
-// strlen segfaults with a NULL input
+/*
+** Mandatory part tests
+*/
+
+/*
+**	Notes:
+**	- strlen segfaults with a NULL input
+*/
+
 void test_strlen(const char *str)
 {	
 	size_t len;
@@ -142,7 +183,7 @@ void test_strlen(const char *str)
 		printf("Correct!\n");
 	else
 		printf("Test failed\n");
-	printf("Test string: %s\n\treal:\t%zu\n\tft:\t%zu\n", str, len, len_ft);
+	printf("Test string: %s\n\treal:\t%zu\n\tft:\t%zu\n\n", str, len, len_ft);
 }
 
 void strcpy_results(char *dest, const char *src, int dest_len, char *(f)(char *, const char *))
@@ -155,15 +196,19 @@ void strcpy_results(char *dest, const char *src, int dest_len, char *(f)(char *,
 	while (i < dest_len)
 	{
 		if (dest[i] == '\0')
-			printf("[0]");
+			printf("\\0");
 		else
 			printf("%c", dest[i]);
 		i++;
 	}
-	printf("\n\n");
+	printf("\n");
 }
 
-// strcpy segfaults with any NULL inputs or if dest isn't allocated
+/*
+**	Notes:
+**	- strcpy segfaults with any NULL inputs or if dest isn't allocated
+*/
+
 void test_strcpy(char *dest, const char *src)
 {
 	char *dest_ft = strdup(dest);
@@ -179,10 +224,16 @@ void test_strcpy(char *dest, const char *src)
 
 	printf("Fake strcpy:\n");
 	strcpy_results(dest_real, src, dest_len, ft_strcpy);
+	printf("\n");
+	free(dest_real);
+	free(dest_ft);
 }
 
+/*
+**	Notes:
+**	- strcmp segfaults with any NULL inputs
+*/
 
-// strcmp segfaults with any NULL inputs
 void test_strcmp(const char *s1, const char *s2)
 {
 	int ret_real;
@@ -195,6 +246,7 @@ void test_strcmp(const char *s1, const char *s2)
 		printf("strcmp success!\n\tstrcmp:\t\t%d\n\tft_strcmp:\t%d\n", ret_real, ret_ft);
 	else
 		printf("Test failed:\n\tstrcmp:\t%d\n\tft_strcmp:\t%d\n", ret_real, ret_ft);
+	printf("\n");
 }
 
 void test_write(int fd, char *str, size_t byte_count)
@@ -224,6 +276,7 @@ void test_write(int fd, char *str, size_t byte_count)
     fprintf(stderr, "Value of errno: %d\n\n", errno);
 
 	printf("real return:\t%d\nft return:\t%d\n", ret_real, ret_ft);
+	printf("\n");
 }
 
 void test_read(char *path_to_file, size_t byte_count)
@@ -248,16 +301,20 @@ void test_read(char *path_to_file, size_t byte_count)
 	fd = open(path_to_file, O_RDONLY);
 	printf("Read %d bytes from fd %d\nreal:\t[%s]\nerrno:\t%d\n\n", ret_real, fd, buf_real, errno_real);
 	
-
 	ret_ft = ft_read(fd, buf_ft, byte_count);
 	errno_ft = errno;
 	close(fd);
-
 	printf("Read %d bytes from fd %d\nft:\t[%s]\nerrno:\t%d\n", ret_ft, fd, buf_ft, errno_ft);
+	printf("\n");
 
+	free(buf_ft);
+	free(buf_real);
 }
 
-//strdup segfaults when you pass null to it
+/*
+**	Notes:
+**	- strdup segfaults when you pass null to it
+*/
 void test_strdup(const char *str)
 {
 	char *s_real;
@@ -268,36 +325,40 @@ void test_strdup(const char *str)
 	printf("orig str\t%p\n[%s]\n", str, str);
 	printf("strdup\t\t%p\n[%s]\n", s_real, s_real);
 	printf("ft_strdup\t%p\n[%s]\n", s_ft, s_ft);
+	free(s_real);
+	free(s_ft);
+	printf("\n");
 }
 
-
-//strtol and ft_atoi_base work slightly differently.
-//Differences:
-//strtol returns a long, atoi_base can only deal with ints
-//strtol only works with charset 0123456789ABCDEFG..., if using
-//	any other chars, there will be discrepencies
-//strtol handles whitespace and other non matching chars differently.
-//	atoi_base immediately returns 0 when faced with extraneous + or - signs
-//	or any char not specified in base
-void test_atoi_base(char *str, char *base)
+void test_lists()
 {
-	char *end;
-	int strtol_base = ft_strlen(base);
-	int len = ft_strlen(str);
+	t_list *head;
 
-	printf("%d\n", ft_atoi_base(str, base));
-	printf("strtol: %ld\n", strtol(str, &end, strtol_base));
+	head = (t_list *)malloc(sizeof(t_list));
+	head->data = "o";
+	head->next = NULL;
+
+	test_list_sort(&head);
+	test_list_push(&head);
+	test_list_size(head);
+	test_list_sort(&head);
+	test_list_rm(&head);
+	test_list_size(head);
+	free_list(&head);
 }
 
 int main()
 {
-	test_strlen("11");
+	test_strlen("aaa");
 	test_strcpy("111111111111111111", "223333333");
 	test_strcmp("\xff", "\xff\xff");
-	test_write(1, NULL, 5);
-	test_read("help.txtt", 1);
-	test_strdup("1234567");
-	test_atoi_base("10111", "123");
+	test_write(1, "aa", 2);
+	test_read("Makefile", 0);
+	test_strdup("ya");
+	test_atoi_base("212AAAC88", "0123456789ABC");
 	test_lists();
+	int ret = system("leaks a.out > /dev/null");
+	if (ret != 0)
+		printf("leaks? %d\n", ret);
 	return (0);
 }

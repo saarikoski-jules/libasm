@@ -7,6 +7,8 @@ section .text
 _ft_list_push_front:
 	cmp rdi, 0x0		; check if no head provided
 	je error
+	cmp qword [rdi], 0x0
+	je error
 	push rdi			; save all volatile registers before call to external function
 	push rsi
 	mov rdi, 16			; a pointer in 64 is 8 bytes, so the size of t_list is 16
