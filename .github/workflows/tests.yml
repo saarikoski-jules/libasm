@@ -1,4 +1,4 @@
-name: test-macos
+name: test
 on: [push]
 jobs:
   Test-macos:
@@ -10,9 +10,17 @@ jobs:
         run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
       - name: get nasm
         run: brew install nasm
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
+      - name: Compile
+        run: make test
+      - name: Excecute tests
+        run: ./a.out
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: get nasm
+        run: sudo apt-get install -y nasm
       - name: Compile
         run: make test
       - name: Excecute tests
