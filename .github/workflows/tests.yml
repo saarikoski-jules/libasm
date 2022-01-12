@@ -12,5 +12,4 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - name: Excecute tests
-        run: make test
-        run: ./a.out
+        run: make test && ./a.out
