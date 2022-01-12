@@ -13,5 +13,7 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - name: Compile
+        run: make test
       - name: Excecute tests
-        run: make test && ./a.out
+        run: ./a.out
