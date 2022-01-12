@@ -27,7 +27,7 @@ static void print_list(t_list *head)
 	printf("printing list:\n");
 	while(tmp != NULL)
 	{
-		printf("%p, %s, next: %p\n", tmp, tmp->data, tmp->next);
+		printf("%p, %s, next: %p\n", tmp, (char*)tmp->data, tmp->next);
 		tmp = tmp->next;
 	}
 }
