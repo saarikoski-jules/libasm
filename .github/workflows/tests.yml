@@ -27,4 +27,4 @@ jobs:
         with:
           path: |
             srcs
-          key: ${{ runner.os }}-${{ hashFiles(test.c) }}
+          key: ${{ runner.os }}-${{ hashFiles(tests.c) }}
